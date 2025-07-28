@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 
 import { GlobalFontVariables } from '../components/fonts';
+import { GoogleAnalytics } from '../components/google-analytics';
 import { getUrqlClientConfig } from '../lib/api/client';
 import '../styles/index.css';
 
@@ -24,6 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<Fragment>
 			<GlobalFontVariables />
+			<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
 			<Component {...pageProps} />
 		</Fragment>
 	);

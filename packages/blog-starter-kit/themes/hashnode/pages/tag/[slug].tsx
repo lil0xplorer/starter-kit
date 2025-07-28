@@ -7,8 +7,10 @@ import { initUrqlClient } from 'next-urql';
 import { AppProvider } from '../../components/contexts/appContext';
 import { Header } from '../../components/header';
 import { Layout } from '../../components/layout';
+import { SEOHead } from '../../components/seo-head';
+import { Breadcrumb } from '../../components/breadcrumb';
 import {
-	Post,
+	type Post,
 	PublicationFragment,
 	TagInitialDocument,
 	TagInitialQuery,
@@ -44,13 +46,66 @@ export default function Post({ publication, posts, tag, slug, currentMenuId }: P
 		setAfter(postData.edges[postData.edges.length - 1].cursor);
 		}
 	};
+	
+	// Generate breadcrumbs for the tag page
+	const breadcrumbs = [
+		{ name: 'Home', url: '/' },
+		{ name: 'Tags', url: '/tags' },
+		{ name: tag.name, url: `/tag/${tag.slug}`, isCurrentPage: true },
+	];
+
+	// Generate custom description for tag page
+	const tagDescription = `Browse articles tagged with #${tag.name} on ${publication.title}. Discover insightful content and stories about ${tag.name}.`;
+
+	// Generate JSON-LD for tag page
+	const tagJsonLd = {
+		'@context': 'https://schema.org',
+		'@type': 'CollectionPage',
+		name: `#${tag.name}`,
+		description: tagDescription,
+		url: `${publication.url}/tag/${tag.slug}`,
+		mainEntity: {
+			'@type': 'ItemList',
+			name: `Articles tagged with #${tag.name}`,
+			numberOfItems: posts.totalDocuments,
+			itemListElement: posts.edges.slice(0, 10).map((edge, index) => ({
+				'@type': 'ListItem',
+				position: index + 1,
+				url: edge.node.url,
+				name: edge.node.title,
+			})),
+		},
+		isPartOf: {
+			'@type': 'WebSite',
+			name: publication.title,
+			url: publication.url,
+		},
+	};
+
 	return (
 		<AppProvider publication={publication}>
 			<Layout>
+				<SEOHead
+					publication={publication}
+					pageType="tag"
+					customTitle={title}
+					customDescription={tagDescription}
+					currentUrl={`${publication.url}/tag/${tag.slug}`}
+					breadcrumbs={breadcrumbs}
+				/>
 				<Head>
-					<title>{title}</title>
+					<script
+						type="application/ld+json"
+						dangerouslySetInnerHTML={{ __html: JSON.stringify(tagJsonLd) }}
+					/>
 				</Head>
+				
 				<Header currentMenuId={currentMenuId} isHome={false} />
+				
+				{/* Breadcrumb Navigation */}
+				<div className="mx-auto md:w-2/3 px-4 lg:px-8">
+					<Breadcrumb items={breadcrumbs} className="mt-4" />
+				</div>
 				<div className={twJoin('blog-content-area feed-width', 'mx-auto md:w-2/3', !!publication.about?.html && 'mt-12')}>
 					<div
 						className={twJoin(
