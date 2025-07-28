@@ -21,6 +21,9 @@ import { SEOHead } from '../components/seo-head';
 import { Breadcrumb } from '../components/breadcrumb';
 import { ReadingTime } from '../components/reading-time';
 import { AuthorBio } from '../components/author-bio-enhanced';
+import { RelatedPosts } from '../components/related-posts';
+import { TableOfContents } from '../components/table-of-contents';
+import { SocialShare } from '../components/social-share';
 import {
 	MorePostsByPublicationDocument,
 	MorePostsEdgeFragment,
@@ -93,13 +96,63 @@ const Post = ({ publication, post, morePosts }: PostProps) => {
 			
 			<PostHeader post={post} morePosts={morePosts} />
 			
+			{/* Content area with Table of Contents sidebar on desktop */}
+			<Container className="px-4 md:px-6">
+				<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-8">
+					{/* Table of Contents - Desktop Sidebar */}
+					<aside className="hidden lg:block lg:col-span-1">
+						<div className="sticky top-24">
+							<TableOfContents post={post} />
+						</div>
+					</aside>
+					
+					{/* Main Content */}
+					<main className="lg:col-span-3">
+						{/* Article metadata */}
+						<div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+							<div className="flex items-center space-x-4">
+								<ReadingTime 
+									readTimeInMinutes={post.readTimeInMinutes} 
+									className="text-sm"
+								/>
+								<span className="text-sm text-gray-500 dark:text-gray-500">
+									{new Date(post.publishedAt).toLocaleDateString('en-US', {
+										year: 'numeric',
+										month: 'long',
+										day: 'numeric',
+									})}
+								</span>
+							</div>
+							
+							<SocialShare post={post} publication={publication} />
+						</div>
+						
+						{/* Table of Contents - Mobile */}
+						<div className="lg:hidden mb-8">
+							<TableOfContents post={post} />
+						</div>
+						
+						{/* Post content would be rendered here by PostHeader component */}
+					</main>
+				</div>
+			</Container>
+			
 			{/* Enhanced Author Bio Section */}
 			<Container className="px-4 md:px-6">
-				<div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+				<div className="mt-12 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
 					<AuthorBio 
 						author={post.author} 
 						showBio={true} 
-						showFollowCount={true}
+					/>
+				</div>
+			</Container>
+			
+			{/* Related Posts Section */}
+			<Container className="px-4 md:px-6">
+				<div className="mt-12">
+					<RelatedPosts 
+						currentPost={post} 
+						morePosts={morePosts}
 					/>
 				</div>
 			</Container>
