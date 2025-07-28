@@ -86,7 +86,12 @@ const config = {
 		];
 	},
 	async redirects() {
-		return await getRedirectionRules();
+		try {
+			return await getRedirectionRules();
+		} catch (error) {
+			console.warn('Failed to fetch redirection rules, proceeding with empty redirects:', error.message);
+			return [];
+		}
 	},
 };
 

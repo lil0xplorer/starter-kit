@@ -96,6 +96,7 @@ export const getServerSideProps: GetServerSideProps<{
   const log = _log.with({ host });
 
   const ssrCache = createSSRExchange();
+  // @ts-ignore - Temporary ignore for urql version compatibility issue
   const urqlClient = initUrqlClient(getUrqlClientConfig(ssrCache), false);
 
   const gqlVariables: NewsletterQueryVariables = {
