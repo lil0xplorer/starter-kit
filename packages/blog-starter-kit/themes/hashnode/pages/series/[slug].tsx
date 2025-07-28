@@ -169,6 +169,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async (ctx)
 	const requestHost = query['x-host'] || req.headers.host;
 	const [resolvedPath] = resolvedUrl.split('?');
 	const ssrCache = createSSRExchange();
+	// @ts-ignore - Temporary ignore for urql version compatibility issue
 	const urqlClient = initUrqlClient(getUrqlClientConfig(ssrCache), false);
 	let rawCurrentMenuId = '';
 	const publicationInfo = await urqlClient

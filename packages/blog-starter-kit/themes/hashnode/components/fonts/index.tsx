@@ -1,20 +1,25 @@
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+// Temporarily disabled Google Fonts due to network connectivity issues during build
+// import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
+// const inter = Inter({
+//   subsets: ['latin'],
+//   variable: '--font-inter',
+//   display: 'swap',
+// });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  variable: '--font-plus-jakarta-sans',
-  display: 'swap',
-});
+// const plusJakartaSans = Plus_Jakarta_Sans({
+//   subsets: ['latin'],
+//   variable: '--font-plus-jakarta-sans',
+//   display: 'swap',
+// });
 
-const variableConstant = 'variable';
-const fontInterVar = inter.variable.replace(variableConstant, 'Inter');
-const fontPlusJakartaSansVar = plusJakartaSans.variable.replace(variableConstant, 'Plus_Jakarta_Sans');
+// const variableConstant = 'variable';
+// const fontInterVar = inter.variable.replace(variableConstant, 'Inter');
+// const fontPlusJakartaSansVar = plusJakartaSans.variable.replace(variableConstant, 'Plus_Jakarta_Sans');
+
+// Fallback without Google Fonts
+const fontInterVar = '--font-inter';
+const fontPlusJakartaSansVar = '--font-plus-jakarta-sans';
 
 export const GlobalFontVariables = () => (
   <style jsx global>{`

@@ -49,6 +49,7 @@ export default function Index(
 	const { host, publication, initialLimit } = props;
 
 	const ssrCache = createSSRExchange();
+	// @ts-ignore - Temporary ignore for urql version compatibility issue
 	const urqlClient = initUrqlClient(getUrqlClientConfig(ssrCache), false); // TODO: Check why is urqlClient not automatically being passed in props. Ideally, since we are using WithUrqlClient HOC, it should automatically come
 
 	const [fetching, setFetching] = useState(false);
@@ -198,6 +199,7 @@ export default function Index(
 
 export const getStaticProps = async () => {
 	const ssrCache = createSSRExchange();
+	// @ts-ignore - Temporary ignore for urql version compatibility issue
 	const urqlClient = initUrqlClient(getUrqlClientConfig(ssrCache), false);
 	const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 	const homePageInitialQueryVariables: HomePageInitialQueryVariables = {
