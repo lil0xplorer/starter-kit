@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAnalytics } from './google-analytics';
 
 interface SocialShareProps {
 	url: string;
@@ -23,6 +24,7 @@ export const SocialShare = ({
 	showLabels = false 
 }: SocialShareProps) => {
 	const [copied, setCopied] = useState(false);
+	const { trackSocialShare } = useAnalytics();
 
 	const platforms: SharePlatform[] = [
 		{
@@ -83,12 +85,18 @@ export const SocialShare = ({
 			await navigator.clipboard.writeText(url);
 			setCopied(true);
 			setTimeout(() => setCopied(false), 2000);
+			
+			// Track copy action
+			trackSocialShare('copy_link', url, title);
 		} catch (err) {
 			console.error('Failed to copy URL:', err);
 		}
 	};
 
 	const openShareWindow = (shareUrl: string, platform: string) => {
+		// Track the share event
+		trackSocialShare(platform.toLowerCase(), url, title);
+		
 		const width = 600;
 		const height = 400;
 		const left = (window.innerWidth - width) / 2;

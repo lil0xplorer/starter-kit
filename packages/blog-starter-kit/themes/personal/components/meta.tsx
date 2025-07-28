@@ -158,8 +158,10 @@ export const Meta = ({
 			{favicon ? <link rel="icon" type="image/png" href={favicon} /> : defaultFavicons}
 			<meta name="msapplication-config" content="/favicon/browserconfig.xml" />
 			
-			{/* RSS Feed */}
-			<link rel="alternate" type="application/rss+xml" title={`${publication.title} RSS Feed`} href="/feed.xml" />
+			{/* RSS and JSON Feeds */}
+			<link rel="alternate" type="application/rss+xml" title={`${publication.title} RSS Feed`} href="/rss.xml" />
+			<link rel="alternate" type="application/feed+json" title={`${publication.title} JSON Feed`} href="/feed.json" />
+			<link rel="alternate" type="application/rss+xml" title={`${publication.title} Feed`} href="/feed.xml" />
 			
 			{/* Font Optimization */}
 			<link

@@ -1,4 +1,5 @@
 import { Analytics } from './analytics';
+import { GoogleAnalytics } from './google-analytics';
 import { Integrations } from './integrations';
 import { Meta } from './meta';
 import { Scripts } from './scripts';
@@ -16,6 +17,7 @@ export const Layout = ({ children }: Props) => {
 				<main>{children}</main>
 			</div>
 			<Analytics />
+			<GoogleAnalytics />
 			<Integrations />
 		</>
 	);
