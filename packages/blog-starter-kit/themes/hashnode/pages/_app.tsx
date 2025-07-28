@@ -14,10 +14,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 		(window as any).adjustIframeSize = (id: string, newHeight: string) => {
 			const i = document.getElementById(id);
 			if (!i) return;
-			// eslint-disable-next-line radix
 			i.style.height = `${parseInt(newHeight)}px`;
 		};
+
+		// ✅ Force dark mode by default
+		document.documentElement.classList.add('dark');
 	}, []);
+
 	return (
 		<Fragment>
 			<GlobalFontVariables />
