@@ -164,6 +164,7 @@
   }
 }
 
+/* ✅ Inline code */
 .prose code {
   border-radius: 0.25rem;
   font-weight: 400 !important;
@@ -174,6 +175,7 @@
   background: #f0efed;
 }
 
+/* ✅ Inline code in dark */
 .dark .prose code {
   --tw-bg-opacity: 1;
   background-color: rgba(36, 41, 46, var(--tw-bg-opacity));
@@ -181,30 +183,42 @@
   color: rgba(238, 238, 238, var(--tw-text-opacity));
 }
 
+/* ✅ Multiline code block <pre><code> */
 .prose pre {
   padding-top: 2rem !important;
   padding-bottom: 2rem !important;
+  overflow-x: auto;
+  border-radius: 0.25rem;
+  background-color: #f5f5f5;
 }
 
 .prose pre code {
   background-color: transparent;
-  border-radius: 0px;
   font-weight: 500 !important;
   padding: 0px;
   font-size: 100%;
-  color: #fafafa;
+  color: #111;
+  display: block;
+  white-space: pre;
 }
 
+/* ✅ Code block dark mode */
+.dark .prose pre {
+  background-color: #000;
+}
+
+.dark .prose pre code {
+  color: #eee;
+  background-color: transparent;
+}
+
+/* Blockquote fix */
 .prose blockquote p:first-of-type::before,
 .prose blockquote p:last-of-type::after {
   content: none;
 }
 
-.dark .prose pre code {
-  background-color: transparent;
-  color: #ddd;
-}
-
+/* Embeds */
 .prose .embed-wrapper {
   max-width: 100%;
   margin-top: 1.25em;
@@ -223,7 +237,6 @@ a.user-mention {
   color: #2962ff !important;
   --tw-border-opacity: 1;
   border-color: rgba(158, 158, 158, var(--tw-border-opacity));
-  /* border-style: dashed; */
   border-bottom-width: 2px;
   display: inline;
   font-weight: 500;
@@ -264,7 +277,7 @@ img.image--right {
 
 /* Permalink styles end */
 
-/* Start: Embed center alignment */
+/* Embed center alignment */
 .embed-card,
 .embed-wrapper {
   display: flex;
@@ -286,12 +299,6 @@ img.image--right {
   .focus-ring-base {
     @apply focus:outline-none focus:ring ring-offset-2;
   }
-  /* .focus-ring-colors-dark-header {
-    @apply ring-white/80 ring-offset-custom-header;
-  } */
-  /* .focus-ring-colors-light-header {
-    @apply ring-slate-950/80 ring-offset-custom-header;
-  } */
   .focus-ring-colors-base {
     @apply ring-blue-600 ring-offset-white dark:ring-offset-slate-800;
   }
