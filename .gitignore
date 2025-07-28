@@ -40,3 +40,12 @@ next-env.d.ts
 # vscode
 .vscode/*
 !.vscode/extensions.json
+
+# build artifacts
+**/*.js
+!*.config.js
+!next.config.js
+!tailwind.config.js
+!postcss.config.js
+!prettier.config.js
+!public/**/*.js
